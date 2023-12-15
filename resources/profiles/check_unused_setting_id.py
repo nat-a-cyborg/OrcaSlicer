@@ -7,7 +7,7 @@ root_dir=os.path.dirname(os.path.abspath(__file__))
 
 
 def loadBlackList():
-    with open(root_dir+'/blacklist.json') as file:
+    with open(f'{root_dir}/blacklist.json') as file:
         data=json.load(file)
 
     for key,val in data.items():
@@ -28,22 +28,22 @@ def traverse_files(path):
                     setting_id_all.add(data['setting_id'])
 
 def getUsedId(brand):
-    with open(root_dir+'/'+brand+'.json')as file:
+    with open(f'{root_dir}/{brand}.json') as file:
         data=json.load(file)
 
     key_list=["machine_model_list","machine_list","filament_list","process_list"]
 
     for key in key_list:
-          for elem in data[key]:
+        for elem in data[key]:
             path=elem['sub_path']
-            with open(root_dir+'/'+brand+'/'+path) as file:
+            with open(f'{root_dir}/{brand}/{path}') as file:
                 file_data=json.load(file)
             if 'setting_id' in file_data:
                 setting_id_used.add(file_data['setting_id'])
 
 
 def getTotalId(brand):
-    traverse_files(root_dir+'/'+brand)
+    traverse_files(f'{root_dir}/{brand}')
 
 
 loadBlackList()
